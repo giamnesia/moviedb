@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { main_url } from "./url";
 import useFetch from "../hooks/useFetch";
+import Spinner from "../loader/Spinner";
 const Videos = ({ id }) => {
   const VID_URL =
     main_url +
@@ -11,25 +12,31 @@ const Videos = ({ id }) => {
   const { isLoading, serverError, apiData } = useFetch(VID_URL);
 
   useEffect(() => {
-    setDisplay(apiData.results ? apiData.results.slice(0, 1) : []);
+    setDisplay(apiData.results ? apiData.results.slice(0, 3) : []);
   }, [apiData]);
 
   return (
     <>
-      <h1 className="text-center">Trailer</h1>
-
-      <div className="flex items-center justify-center">
-        {display.map((item) => (
-          <iframe
-            width="380"
-            height="250"
-            src={`https://www.youtube.com/embed/${item.key}`}
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        ))}
+      <h1 className="text">Trailer</h1>
+      <div className="flex-center-row m-3 p-3">
+        {isLoading ? (
+          <Spinner />
+        ) : display ? (
+          display.map((item) => (
+            <iframe
+              className="m-2"
+              width="320"
+              height="250"
+              src={`https://www.youtube.com/embed/${item.key}`}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          ))
+        ) : (
+          <Spinner />
+        )}
       </div>
     </>
   );

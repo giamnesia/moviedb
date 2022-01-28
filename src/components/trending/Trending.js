@@ -14,26 +14,28 @@ const Trending = () => {
   const { isLoading, serverError, apiData } = useFetch(TOP_URL);
 
   useEffect(() => {
-    setDisplay(apiData.results ? apiData.results.slice(0, 8) : []);
-  
+    setDisplay(apiData.results ? apiData.results.slice(0, 7) : []);
   }, [isLoading]);
 
   return (
-    <div className="column">
+    <div className="pt-12">
       <div className="home">
         <h1 className="text flex-1">Most Popular</h1>
         <h1 > <Link to="trending">See All</Link></h1>
       </div>
 
-      <div div className="home">
+      <div className="flex-center-row">
         {display.map((item) => (
-            <div className="container">
-          <Link to={`/view/${item.id}`}>
+            <div className="card-div">
+             <Link to={`/view/${item.id}`}>
               <img
-                className="images"
+                className="card-img"
                 src={image_url + item.poster_path}
                 alt=""
               />
+                <p className="card-title">
+                      {item.title}
+                </p>
             </Link>
             </div>
         ))}

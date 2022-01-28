@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { main_url, image_url } from "./url";
-
+import { main_url, image_url,orig_image } from "./url";
+import Spinner from "../loader/Loader";
 import useFetch from "../hooks/useFetch";
+import AwesomeSlider from 'react-awesome-slider';
+import withAutoplay from 'react-awesome-slider/dist/autoplay';
 const Np = () => {
+  const AutoplaySlider = withAutoplay(AwesomeSlider);
   const [display, setDisplay] = useState([]);
   const [error, setError] = useState();
   const NP_URL =
@@ -11,27 +14,34 @@ const Np = () => {
     `/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}` +
     "&page=1";
 
-  const { isLoading, serverError, apiData } = useFetch(NP_URL);
+  const { isLoading, apiData } = useFetch(NP_URL);
 
   useEffect(() => {
-    console.log(apiData.results ? apiData.results.slice(0, 10) : [])
     setDisplay(apiData.results ? apiData.results.slice(0, 10) : []);
-  }, [isLoading]);
+  }, [apiData]);
 
   return (
-    <div className='column'>
+    <div className='m-5 flex-center-col'>
       <h1 className='text'>Now Playing </h1>
-    <div className="home">
-      {display.map((item) => (
-        <div className="container">
-          <Link to={`/view/${item.id}`}>
-            <img className="images" src={image_url + item.poster_path} alt="" />
-            <p className='text-small'>{item.title}</p>
-            <p>{item.vote_average}</p>
-          </Link>
-        </div>
-      ))}
-      </div>
+ 
+        {isLoading ?(
+          <Spinner />
+      ) : (
+          <AutoplaySlider
+            className='w-24  h-96 m-2  '
+        play={true}
+        interval={3000}>
+            {display.map((item) => (
+              <div>
+                <Link to={`/view/${item.id}`}>
+                  <img className='' src={orig_image + item.backdrop_path} alt="" />
+                </Link>
+              </div>
+            ))}
+        </AutoplaySlider>
+        )
+        }
+    
       </div>
   );
 };

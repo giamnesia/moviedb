@@ -4,6 +4,12 @@ import useFetch from "../../hooks/useFetch";
 import { main_url } from "../url";
 import ListImage from './ListImage'
 import imagelist from "../../images/genreimg.js";
+import AwesomeSlider from 'react-awesome-slider';
+
+
+import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
+import 'swiper/swiper.min.css'
+
 
 const ListGenre = ({name}) => {
   const [display, setDisplay] = useState([]);
@@ -14,31 +20,38 @@ const ListGenre = ({name}) => {
   const { isLoading, serverError, apiData } = useFetch(LIST_URL);
 
   useEffect(() => {
-    setDisplay(apiData.genres ? apiData.genres : []);
-  
+    setDisplay(apiData.genres ? apiData.genres : [] );
+    console.log(apiData)
     document.title = `MovieDB | Genres`;
   }, [isLoading]);
+  
   return (
-    <div className="flex flex-row flex-wrap m-3 items-center justify-center">
-     
-      
-      {
-        imagelist.map(item => (
-          <>
-            <img src={item.url} className='w-52' alt="" />
-            </>
-        ))
-      }
-      {display.map((item) => (
-        <Link to={`/genre/${item.id}/${item.name}`}>
-          <div className="bg-white m-3 w-52 h-12 text-black text-center">
-            <p>{item.name}</p>
-           
-          </div>
+    <div className=''>
+          <Swiper watchSlidesProgress={true}  breakpoints={{
+          320: {
+            width: 320,
+            slidesPerView: 3,
+          },
+          640: {
+          width: 640,
+          slidesPerView: 4,
+          },
+          768: {
+          width: 768,
+          slidesPerView: 4,
+          },
+          }}>
+        {display.map((item) => (
+          <SwiperSlide className='bg-blue-500  p-5 break-words'>
+          <Link to={`/genre/${item.id}/${item.name}`}>
+            <p class=' h-24 flex-center-col md:border-2'>{item.name}</p>
           </Link>
+            </SwiperSlide>
+          ))}
+      
         
-      ))}
-    
+      </Swiper>
+      
     </div>
   );
 };

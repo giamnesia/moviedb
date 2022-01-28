@@ -6,6 +6,7 @@ import Cast from "./Cast";
 import Videos from "./Videos";
 import GetKeyword from "./GetKeyword";
 import CoverLoader from "../loader/CoverLoader";
+import { AiFillStar } from "react-icons/ai";
 const View = () => {
   const { id } = useParams();
   const [display, setDisplay] = useState([]);
@@ -15,10 +16,10 @@ const View = () => {
     `/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}` +
     "&language=en-US";
 
-  const { isLoading, serverError, apiData } = useFetch(VIEW_URL);
+  const { isLoading, apiData } = useFetch(VIEW_URL);
   useEffect(() => {
     setDisplay(apiData);
-  }, [isLoading]);
+  }, [apiData]);
   return (
     <div>
       <p style={{ display: "none" }}>
@@ -28,9 +29,9 @@ const View = () => {
         <CoverLoader />
       ) : (
         <div className="">
-          <div className="">
+          <div className="flex-center-col mt-8">
             <img
-              className="w-full h-full"
+              className="h-72  w-full object-cover shadow-inner opacity-70"
               src={
                 display.backdrop_path
                   ? orig_image + display.backdrop_path
@@ -38,7 +39,7 @@ const View = () => {
               }
             />
             <img
-              className="images"
+              className="rounded-2xl  relative bottom-16  drop-shadow-2xl w-36 md:w-52 "
               src={
                 display.poster_path
                   ? image_url + display.poster_path
@@ -48,14 +49,13 @@ const View = () => {
             />
           </div>
 
-          {display.original_title}
-          <i>{display.tagline ? `"${display.tagline}"` : []}</i>
-          <p>{display.status}</p>
-          <p>{display.runtime} minutes</p>
-          <p>{display.release_date}</p>
-          <p>{display.overview}</p>
-          <p>{display.vote_average}</p>
-          <div>
+          <center className="text-3xl m-2">{display.original_title}</center>
+          <center>
+            <i className="card-title">
+              {display.tagline ? `"${display.tagline}"` : []}
+            </i>
+          </center>
+          <div className="flex-center-row m-3">
             {display.genres ? (
               display.genres.map((item) => (
                 <Link to={`/genre/${item.id}/${item.name}`}>
@@ -66,6 +66,20 @@ const View = () => {
               <p>No Genre</p>
             )}
           </div>
+          <div className="p-3 flex-center-col">
+            <p className="flex-center-row text-sm w-16 my-3 bg-yellow-400 p-1 rounded-md">
+              <AiFillStar />
+              {display.vote_average}
+            </p>
+            <p className="text-sm">
+              {display.status} | {display.release_date} | {display.runtime}{" "}
+              minutes
+            </p>
+          </div>
+          <center className=" p-5 text-sm leading-6 bg-gray-700 ">
+            <p>{display.overview}</p>
+          </center>
+
           <Cast id={display.id} />
           <Videos id={display.id} />
           <GetKeyword id={display.id} />

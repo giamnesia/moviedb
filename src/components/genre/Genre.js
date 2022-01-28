@@ -30,9 +30,10 @@ const Genre = () => {
         : (
         <div className="home">
         {display.map((item) =>
-        <div className="container">
+        <div className="card-div">
             <Link to={`/view/${item.id}`}>
-              <img className='images' src={image_url + item.poster_path} alt={item.title} />
+              <img className='card-img' src={image_url + item.poster_path} alt={item.title} />
+              <p className='card-title '>{item.title}</p>
             </Link>
           </div>
         )}

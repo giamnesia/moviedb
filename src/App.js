@@ -1,4 +1,7 @@
 import "./App.css";
+import "./styles/style.css";
+import "react-awesome-slider/dist/styles.css";
+
 import Navbar from "./components/Navbar";
 import Search from "./components/Search";
 import View from "./components/View";

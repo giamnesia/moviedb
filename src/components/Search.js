@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-
+import {
+  IoIosArrowDroprightCircle,
+  IoIosArrowDropleftCircle,
+} from "react-icons/io";
 import { main_url, image_url } from "./url";
-import Loader from "../loader/Loader.js";
+import Spinner from "../loader/Spinner";
 const Search = () => {
   const [display, setDisplay] = useState([]);
   const [total, setTotal] = useState([]);
   const [results, setResults] = useState("");
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const { movie } = useParams();
 
@@ -14,19 +18,27 @@ const Search = () => {
     main_url +
     "/search/movie?" +
     `api_key=${process.env.REACT_APP_API_KEY}` +
-    `&page=` +
-    `&query=`;
-  useEffect(() => {
+    `&page=${page}` +
+    `&query=${movie}`;
+
+  const fetchResults = async () => {
     setLoading(true);
-    fetch(SEARCH_URL + movie)
+    await fetch(SEARCH_URL)
       .then((response) => response.json())
       .then((apiData) => {
-        setTotal(apiData.total_results);
+        setTotal(apiData.total_pages);
         setDisplay(apiData.results);
         setResults(movie);
         setLoading(false);
+        if (page > total) {
+          setPage(1);
+        }
       });
-  }, [movie]);
+  };
+  useEffect(() => {
+    fetchResults();
+  }, [movie, page]);
+
   return (
     <div>
       <p style={{ display: "none" }}>
@@ -34,17 +46,39 @@ const Search = () => {
       </p>
       <div className="column">
         <p className="text">Results for: {results}</p>
-
+        <div className="flex-center-row">
+          <button
+            onClick={() => {
+              if (page > 1) {
+                setPage(page - 1);
+              }
+            }}
+          >
+            <IoIosArrowDropleftCircle className="prev-next" />
+          </button>
+          <p>
+            {page}/{total}
+          </p>
+          <button
+            onClick={() => {
+              if (page < total) {
+                setPage(page + 1);
+              }
+            }}
+          >
+            <IoIosArrowDroprightCircle className="prev-next" />
+          </button>
+        </div>
         <div className="home">
-          {display ? (
-            display.map((item) =>
-              loading ? (
-                <Loader />
-              ) : (
-                <div className="bg-white rounded-2xl  w-36 h-52 m-2">
-                  <Link to={`/view/${item.id}`}>
+          {loading ? (
+            <Spinner />
+          ) : display.length != 0 ? (
+            display.map((item) => (
+              <div className="card-div">
+                <Link to={`/view/${item.id}`}>
+                  <div>
                     <img
-                      className="w-36 h-52 rounded-2xl "
+                      className="card-img "
                       src={
                         item.poster_path
                           ? image_url + item.poster_path
@@ -52,12 +86,13 @@ const Search = () => {
                       }
                       alt={item.title}
                     />
-                  </Link>
-                </div>
-              )
-            )
+                  </div>
+                  <p className="card-title">{item.title}</p>
+                </Link>
+              </div>
+            ))
           ) : (
-            <h1>No data</h1>
+            <h1>No data </h1>
           )}
         </div>
       </div>

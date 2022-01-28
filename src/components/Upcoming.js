@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { main_url, image_url } from "./url";
+import Spinner from "../loader/Loader";
 import useFetch from "../hooks/useFetch";
 const Upcoming = () => {
   const [display, setDisplay] = useState([]);
@@ -20,7 +21,7 @@ const Upcoming = () => {
 
       <div className="home">
         {isLoading ? (
-          <p>Loading</p>
+          <Spinner />
         ) : (
           display.map((item) => (
             <div className="container">

@@ -27,10 +27,10 @@ const Person = () => {
         {(document.title = "MovieDB | " + display.name)}
       </p>
 
-      <div className='grid grid-cols-1 md:grid-cols-2   '>
-      <div className='flex-center-col'>
+      <div className=' '>
+      <div className='flex-center-col m-5'>
       <img
-        className="rounded-lg w-52 hover:opacity-60 transition ease-out"
+        className="card-img"
         src={image_url + display.profile_path}
             alt={display.name}
             
@@ -38,11 +38,11 @@ const Person = () => {
 
   
       </div>
-      <div className='p-5'>
-      <p className='text-2xl my-3 text-center md:text-left'>{display.name}</p>
-      <p className='my-3 text-center md:text-left'>{display.gender == 1 ? "Female" : "Male"}</p>
-      <p className='text-sm'>{display.biography ? display.biography : "No biography found"}</p>
-      </div>
+      <center className='p-5'>
+      <center className='text-2xl my-3'>{display.name}</center>
+      <p className='my-3 '>{display.gender == 1 ? "Female" : "Male"}</p>
+      <p className='text-sm m-2'>{display.biography ? display.biography : "No biography found"}</p>
+      </center>
       </div>
      
     

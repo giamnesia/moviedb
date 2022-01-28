@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import Loader from '../loader/Loader'
+import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
+import "swiper/swiper.min.css";
 const Keyword = ({ id }) => {
   const [display, setDisplay] = useState([]);
   const MAIN = "https://api.themoviedb.org/3";
@@ -14,28 +16,45 @@ const Keyword = ({ id }) => {
   const { isLoading, serverError, apiData } = useFetch(URL);
   useEffect(() => {
     setDisplay(apiData.results ? apiData.results.slice(0, 14) : []);
-  }, [isLoading]);
+  }, [apiData]);
   return (
     <div className='column'>
     <h1 className='text'>Similar Movies</h1>
       <div className="home">
-     
-        {display.map((item) => (
-            isLoading? (
-            <Loader/>
-          ) : (
-            <div className="container">
-              <Link to={`/view/${item.id}`}>
-              <img
-                className="images"
-                src={IMG_URL + item.poster_path}
-                alt={item.title}
-              />
+        <Swiper  watchSlidesProgress={true}  breakpoints={{
+                320: {
+                  width: 320,
+                  slidesPerView: 3,
+                },
+              640: {
+                width: 640,
+                slidesPerView: 5,
+              },
+              768: {
+                width: 768,
+                slidesPerView: 4,
+              },
+            }}>
+          {display.map((item) => (
+            
+            <SwiperSlide>{
+              isLoading?(
+              <Loader />
+            ) : (
+              <div className="card-div ">
+                <Link to={`/view/${item.id}`}>
+                  <img
+                    className="card-img"
+                    src={IMG_URL + item.poster_path}
+                    alt={item.title}
+                      />
+                      <p className='card-title'>{item.title}</p>
                 </Link>
-             </div>
-                
-            )
-      ))}
+              </div>
+              )}
+            </SwiperSlide>
+              ))}
+          </Swiper>
       </div>
       </div>
   );

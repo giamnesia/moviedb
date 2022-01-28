@@ -4,7 +4,7 @@ import React from "react";
 const Home = () => {
   const [error, seterror] = React.useState();
   React.useEffect(() => {
-    document.title = `MovieDB`;
+    document.title = `MovieDB | Home`;
   }, [error]);
   return (
     <div className="m-2">

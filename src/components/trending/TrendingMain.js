@@ -2,39 +2,70 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { image_url, main_url } from "../url";
-import Loader from "../../loader/Loader";
+import Spinner from "../../loader/Spinner";
+import {
+  IoIosArrowDroprightCircle,
+  IoIosArrowDropleftCircle,
+} from "react-icons/io";
 const TrendingMain = () => {
   const [display, setDisplay] = useState([]);
   const [visible, setVisible] = useState(true);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState([]);
   const TOP_URL =
     main_url +
     `/trending/movie/day?api_key=${process.env.REACT_APP_API_KEY}` +
-    "&page=1";
+    `&page=${page}`;
 
   const { isLoading, apiData } = useFetch(TOP_URL);
 
   useEffect(() => {
+    setTotal(apiData.total_pages);
     setDisplay(apiData.results ? apiData.results.slice(0, 20) : []);
-    console.log(apiData.results);
-  }, [isLoading]);
+    document.title = `MovieDB | Trending`;
+  }, [apiData, page]);
   return (
     <div className="column">
       <h1 className="text">Most Popular</h1>
+      <div className="flex-center-row">
+        <button
+          onClick={() => {
+            if (page > 1) {
+              setPage(page - 1);
+            }
+          }}
+        >
+          <IoIosArrowDropleftCircle className="prev-next" />
+        </button>
+        <p>
+          {page}/{total}
+        </p>
+        <button
+          onClick={() => {
+            if (page < total) {
+              setPage(page + 1);
+            }
+          }}
+        >
+          <IoIosArrowDroprightCircle className="prev-next" />
+        </button>
+      </div>
       <div div className="home">
-        {display.map((item) =>
-          isLoading ? (
-            <Loader />
-          ) : (
-            <div className="container">
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          display.map((item) => (
+            <div className="card-div">
               <Link to={`/view/${item.id}`}>
                 <img
-                  className="images"
+                  className="card-img"
                   src={image_url + item.poster_path}
                   alt=""
                 />
+                <p className="card-title">{item.title}</p>
               </Link>
             </div>
-          )
+          ))
         )}
       </div>
     </div>
