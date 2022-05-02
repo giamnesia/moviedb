@@ -26,7 +26,7 @@ body {
     @apply w-24 h-52 m-2 md:w-36 md:h-64 md:m-3;
   }
   .card-img {
-    @apply w-24 h-36 md:w-36 md:h-52;
+    @apply w-24 h-36 rounded-md md:w-36 md:h-52;
   }
   .card-title {
     @apply text-xs mt-2 md:text-sm;

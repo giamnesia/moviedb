@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import useFetch from "../hooks/useFetch";
 import { Link } from "react-router-dom";
 import { main_url, image_url } from "./url";
-import Loader from '../loader/Loader.js'
+import Spinner from "../loader/Spinner";
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
 import 'swiper/swiper.min.css'
 
@@ -40,17 +40,22 @@ const Cast = ({ id }) => {
                 width: 768,
                 slidesPerView: 4,
               },
-            }}>
+              }}>
+               
                 {display.map((item) => {
                   return (
-                    <div>
+                    <div >
                     {
                       isLoading ? (
-                        <Loader />
+                        <Spinner />
                       ) : (
                         <SwiperSlide>
                           <Link to={`/person/${item.id}`}>
-                            <div className='card-div'>
+                                <div className='card-div'
+                                  data-aos="fade-right"
+                                  data-aos-duration="700"
+                                  data-aos-delay="200"
+                                  data-aos-easing="ease-in-out">
                               <img className='card-img'
                                 src={
                                   item.profile_path != null

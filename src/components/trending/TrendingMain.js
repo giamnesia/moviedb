@@ -7,9 +7,9 @@ import {
   IoIosArrowDroprightCircle,
   IoIosArrowDropleftCircle,
 } from "react-icons/io";
+
 const TrendingMain = () => {
   const [display, setDisplay] = useState([]);
-  const [visible, setVisible] = useState(true);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState([]);
   const TOP_URL =

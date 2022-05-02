@@ -13,7 +13,7 @@ const Keyword = ({ id }) => {
     `&with_keywords=${id}&language=en-US`;
   const IMG_URL = "https://image.tmdb.org/t/p/w300";
 
-  const { isLoading, serverError, apiData } = useFetch(URL);
+  const { isLoading, apiData } = useFetch(URL);
   useEffect(() => {
     setDisplay(apiData.results ? apiData.results.slice(0, 14) : []);
   }, [apiData]);
@@ -41,7 +41,10 @@ const Keyword = ({ id }) => {
               isLoading?(
               <Loader />
             ) : (
-              <div className="card-div ">
+              <div className="card-div"   data-aos="fade-right"
+              data-aos-duration="700"
+              data-aos-delay="200"
+              data-aos-easing="ease-in-out">
                 <Link to={`/view/${item.id}`}>
                   <img
                     className="card-img"

@@ -23,7 +23,7 @@ const ListGenre = ({name}) => {
     setDisplay(apiData.genres ? apiData.genres : [] );
     console.log(apiData)
     document.title = `MovieDB | Genres`;
-  }, [isLoading]);
+  }, [apiData]);
   
   return (
     <div className=''>

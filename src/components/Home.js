@@ -8,7 +8,6 @@ const Home = () => {
   }, [error]);
   return (
     <div className="m-2">
-      <Np />
       <Trending />
     </div>
   );

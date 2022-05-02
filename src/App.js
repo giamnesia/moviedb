@@ -1,7 +1,9 @@
 import "./App.css";
 import "./styles/style.css";
 import "react-awesome-slider/dist/styles.css";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Search from "./components/Search";
 import View from "./components/View";
@@ -14,6 +16,10 @@ import Upcoming from "./components/Upcoming";
 import TrendingMain from "./components/trending/TrendingMain";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 function App() {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
     <div className="App">
       <Router>

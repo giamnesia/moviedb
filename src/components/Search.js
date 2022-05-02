@@ -30,9 +30,6 @@ const Search = () => {
         setDisplay(apiData.results);
         setResults(movie);
         setLoading(false);
-        if (page > total) {
-          setPage(1);
-        }
       });
   };
   useEffect(() => {
@@ -74,7 +71,13 @@ const Search = () => {
             <Spinner />
           ) : display.length != 0 ? (
             display.map((item) => (
-              <div className="card-div">
+              <div
+                className="card-div"
+                data-aos="zoom-in"
+                data-aos-duration="700"
+                data-aos-delay="200"
+                data-aos-easing="ease-in-out"
+              >
                 <Link to={`/view/${item.id}`}>
                   <div>
                     <img

@@ -28,10 +28,10 @@ const View = () => {
       {isLoading ? (
         <CoverLoader />
       ) : (
-        <div className="">
-          <div className="flex-center-col mt-8">
+        <div>
+          <div className=" flex-center-col mt-8">
             <img
-              className="h-72  w-full object-cover shadow-inner opacity-70"
+              className="cover-img h-80  w-full object-cover "
               src={
                 display.backdrop_path
                   ? orig_image + display.backdrop_path
@@ -77,7 +77,7 @@ const View = () => {
             </p>
           </div>
           <center className=" p-5 text-sm leading-6 bg-gray-700 ">
-            <p>{display.overview}</p>
+            <p>{display.overview ? display.overview : "No Data"}</p>
           </center>
 
           <Cast id={display.id} />

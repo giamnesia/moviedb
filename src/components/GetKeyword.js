@@ -8,9 +8,8 @@ const GetKeyword = ({ id }) => {
     `/movie/${id}/keywords?api_key=${process.env.REACT_APP_API_KEY}` +
     `&language=en-US`;
   const [display, setDisplay] = useState([]);
-  const { isLoading, apiData } = useFetch(GET_URL);
+  const { apiData } = useFetch(GET_URL);
   useEffect(() => {
-    console.log(apiData.keywords);
     setDisplay(apiData.keywords ? apiData.keywords.slice(0, 1) : []);
   }, [apiData]);
   return (

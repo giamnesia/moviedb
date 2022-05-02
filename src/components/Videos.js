@@ -16,15 +16,15 @@ const Videos = ({ id }) => {
   }, [apiData]);
 
   return (
-    <>
+    <div className="m-3">
       <h1 className="text">Trailer</h1>
-      <div className="flex-center-row m-3 p-3">
+      <div className="flex-center-row p-3">
         {isLoading ? (
           <Spinner />
-        ) : display ? (
+        ) : (
           display.map((item) => (
             <iframe
-              className="m-2"
+              className="m-5"
               width="320"
               height="250"
               src={`https://www.youtube.com/embed/${item.key}`}
@@ -34,11 +34,9 @@ const Videos = ({ id }) => {
               allowfullscreen
             ></iframe>
           ))
-        ) : (
-          <Spinner />
         )}
       </div>
-    </>
+    </div>
   );
 };
 
