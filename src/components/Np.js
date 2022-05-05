@@ -5,6 +5,8 @@ import Spinner from "../loader/Loader";
 import useFetch from "../hooks/useFetch";
 import AwesomeSlider from 'react-awesome-slider';
 import withAutoplay from 'react-awesome-slider/dist/autoplay';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 const Np = () => {
   const AutoplaySlider = withAutoplay(AwesomeSlider);
   const [display, setDisplay] = useState([]);
@@ -34,7 +36,7 @@ const Np = () => {
             {display.map((item) => (
               <div>
                 <Link to={`/view/${item.id}`}>
-                  <img className='' src={orig_image + item.backdrop_path} alt="" />
+                  <LazyLoadImage effect='blur' src={orig_image + item.backdrop_path} alt="" />
                 </Link>
               </div>
             ))}

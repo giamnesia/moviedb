@@ -7,7 +7,8 @@ import {
   IoIosArrowDroprightCircle,
   IoIosArrowDropleftCircle,
 } from "react-icons/io";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 const TrendingMain = () => {
   const [display, setDisplay] = useState([]);
   const [page, setPage] = useState(1);
@@ -57,7 +58,8 @@ const TrendingMain = () => {
           display.map((item) => (
             <div className="card-div">
               <Link to={`/view/${item.id}`}>
-                <img
+                <LazyLoadImage
+                  effect="blur"
                   className="card-img"
                   src={image_url + item.poster_path}
                   alt=""

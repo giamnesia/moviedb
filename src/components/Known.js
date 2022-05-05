@@ -5,6 +5,8 @@ import useFetch from "../hooks/useFetch";
 import Spinner from "../loader/Spinner";
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import "swiper/swiper.min.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 const Known = ({ id }) => {
   const KNOWN_URL =
     main_url +
@@ -52,7 +54,8 @@ const Known = ({ id }) => {
                       data-aos-delay="200"
                       data-aos-easing="ease-in-out"
                     >
-                      <img
+                      <LazyLoadImage
+                        effect="blur"
                         className="card-img"
                         src={
                           item.poster_path

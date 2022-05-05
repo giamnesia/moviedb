@@ -4,6 +4,8 @@ import useFetch from "../hooks/useFetch";
 import Loader from '../loader/Loader'
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import "swiper/swiper.min.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 const Keyword = ({ id }) => {
   const [display, setDisplay] = useState([]);
   const MAIN = "https://api.themoviedb.org/3";
@@ -41,12 +43,13 @@ const Keyword = ({ id }) => {
               isLoading?(
               <Loader />
             ) : (
-              <div className="card-div"   data-aos="fade-right"
+              <div className="card-div mb-10"   data-aos="fade-right"
               data-aos-duration="700"
               data-aos-delay="200"
               data-aos-easing="ease-in-out">
                 <Link to={`/view/${item.id}`}>
-                  <img
+                      <LazyLoadImage
+                        effect="blur"
                     className="card-img"
                     src={IMG_URL + item.poster_path}
                     alt={item.title}

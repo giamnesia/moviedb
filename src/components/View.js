@@ -6,6 +6,8 @@ import Cast from "./Cast";
 import Videos from "./Videos";
 import GetKeyword from "./GetKeyword";
 import CoverLoader from "../loader/CoverLoader";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import { AiFillStar } from "react-icons/ai";
 const View = () => {
   const { id } = useParams();
@@ -30,22 +32,23 @@ const View = () => {
       ) : (
         <div>
           <div className=" flex-center-col mt-8">
-            <img
-              className="cover-img h-80  w-full object-cover "
+            <LazyLoadImage
+              effect="blur"
+              className="cover-img h-80 object-cover w-full"
               src={
                 display.backdrop_path
                   ? orig_image + display.backdrop_path
                   : "https://via.placeholder.com/1000x100"
               }
             />
-            <img
-              className="rounded-2xl  relative bottom-16  drop-shadow-2xl w-36 md:w-52 "
+            <LazyLoadImage
+              effect="blur"
+              className="rounded-2xl relative bottom-16  drop-shadow-2xl w-36 md:w-52 "
               src={
                 display.poster_path
                   ? image_url + display.poster_path
                   : "https://images.pexels.com/photos/3747139/pexels-photo-3747139.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
               }
-              alt={display.original_title}
             />
           </div>
 

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Known from "./Known";
 import Back from "./Back";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import { image_url, main_url } from "./url";
 const Person = () => {
   const { id } = useParams();
@@ -30,7 +32,8 @@ const Person = () => {
       <Back/>
       <div className=' '>
       <div className='flex-center-col m-5'>
-      <img
+          <LazyLoadImage
+            effect="blur"
         className="card-img"
         src={
           display.profile_path

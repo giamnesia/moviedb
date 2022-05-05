@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { image_url, main_url } from "../url";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import Spinner from "../../loader/Spinner";
 import {
   IoIosArrowDroprightCircle,
   IoIosArrowDropleftCircle,
 } from "react-icons/io";
+import { Lazy } from "swiper";
 const Genre = () => {
   const [display, setDisplay] = useState([]);
   const { name , genrename } = useParams();
@@ -66,7 +69,7 @@ const Genre = () => {
           data-aos-easing="ease-in-out"
           >
             <Link to={`/view/${item.id}`}>
-              <img className='card-img' src={image_url + item.poster_path} alt={item.title} />
+              <LazyLoadImage effect='blur' className='card-img' src={image_url + item.poster_path} alt={item.title} />
               <p className='card-title '>{item.title}</p>
             </Link>
           </div>

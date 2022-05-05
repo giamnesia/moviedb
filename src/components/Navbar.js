@@ -13,17 +13,17 @@ const Navbar = () => {
     <div>
       <nav className=" flex flex-row  p-3 bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 ">
         <div className="flex-1  ">
-          <button onClick={toggle} className="visible md:hidden">
+          {/* <button onClick={toggle} className="s">
             <GiHamburgerMenu className="w-8 h-8" />
-          </button>
+          </button> */}
           <div
-            style={{
-              display: active ? "block" : "none",
-              transitionTimingFunction: "ease",
-              transitionDuration: "0.5s",
-            }}
+          // style={{
+          //   display: active ? "block" : "none",
+          //   transitionTimingFunction: "ease",
+          //   transitionDuration: "0.5s",
+          // }}
           >
-            <ul className=" md:flex flex-row justify-center ">
+            <ul className="flex flex-row justify-center ">
               <Link to="/">
                 <li className="list">Home</li>
               </Link>

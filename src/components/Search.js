@@ -6,6 +6,8 @@ import {
 } from "react-icons/io";
 import { main_url, image_url } from "./url";
 import Spinner from "../loader/Spinner";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 const Search = () => {
   const [display, setDisplay] = useState([]);
   const [total, setTotal] = useState([]);
@@ -80,14 +82,14 @@ const Search = () => {
               >
                 <Link to={`/view/${item.id}`}>
                   <div>
-                    <img
+                    <LazyLoadImage
+                      effect="blur"
                       className="card-img "
                       src={
                         item.poster_path
                           ? image_url + item.poster_path
                           : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png"
                       }
-                      alt={item.title}
                     />
                   </div>
                   <p className="card-title">{item.title}</p>
